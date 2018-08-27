@@ -1,0 +1,78 @@
+version: '3'
+services:
+  sulu_demo_nginx:
+    image: nginx:1.15
+    container_name: sulu_demo_nginx
+    volumes:
+      - ./docker/local/nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html
+    ports:
+      - "127.0.0.1:80:80"
+    depends_on:
+      - sulu_demo_fpm
+    networks:
+      back:
+
+  sulu_demo_fpm:
+#    image: nascom/php:7.1-fpm-alpine
+# To use step debugging (xdebug) comment the line above and uncomment the line below...
+    build: ./docker/fpm-debug
+    container_name: sulu_demo_fpm
+    volumes:
+      - .:/var/www/html
+    environment:
+      - ROOT_EMAIL=operate@nascom.be
+      - SMTP_SERVER=mail.nascom.be
+      - PHP_FPM_UID=1001
+      - PHP_FPM_GID=1001
+    networks:
+      back:
+
+#  sulu_demo_elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.10
+#    container_name: sulu_demo_elasticsearch
+#    environment:
+#      - discovery.type=single-node
+#      - bootstrap.memory_lock=true
+#      - xpack.security.enabled=false
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - sulu_demo_esdata:/usr/share/elasticsearch/data
+#    networks:
+#      back:
+
+  sulu_demo_mariadb:
+    image: mariadb:10.1
+    container_name: sulu_demo_mariadb
+    volumes:
+      - sulu_demo_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      back:
+
+  sulu_demo_mail:
+    image: mailhog/mailhog
+    container_name: sulu_demo_mail
+    command: ["-smtp-bind-addr", "0.0.0.0:25"]
+    user: root
+    expose:
+      - 25
+      - 8025
+    ports:
+      - "127.0.0.1:8025:8025"
+    networks:
+      back:
+
+volumes:
+#  sulu_demo_esdata:
+  sulu_demo_db:
+
+networks:
+  back:
+    external:
+      name: docker_back
