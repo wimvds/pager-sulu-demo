@@ -19,12 +19,15 @@ class PagerController extends WebsiteController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(
+        Request $request,
         StructureInterface $structure,
         $attributes = [],
         $preview = false,
         $partial = false
     ) {
         $pager = $this->getDummyPager();
+        $page = $request->query->getInt('page', 1);
+        $pager->setCurrentPage($page);
 
         return $this->renderStructure(
             $structure,

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9088831eed540b93a4f9c7afd482f95",
+    "content-hash": "da632040dc9ef75d967578f8fac42782",
     "packages": [
         {
             "name": "aferrandini/urlizer",
@@ -4576,16 +4576,16 @@
         },
         {
             "name": "sulu/sulu",
-            "version": "1.6.21",
+            "version": "dev-fix-sulu-routing",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sulu/sulu.git",
-                "reference": "c0c04cd95ea6e4ef9a514d1b8ceb4742003c610b"
+                "url": "https://github.com/wimvds/sulu.git",
+                "reference": "b6e255bbde72ffe22f48d6c7f94ee320bcc094fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sulu/sulu/zipball/c0c04cd95ea6e4ef9a514d1b8ceb4742003c610b",
-                "reference": "c0c04cd95ea6e4ef9a514d1b8ceb4742003c610b",
+                "url": "https://api.github.com/repos/wimvds/sulu/zipball/b6e255bbde72ffe22f48d6c7f94ee320bcc094fc",
+                "reference": "b6e255bbde72ffe22f48d6c7f94ee320bcc094fc",
                 "shasum": ""
             },
             "require": {
@@ -4680,7 +4680,11 @@
                     "src/Sulu/Bundle/*/Tests/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-0": {
+                    "Sulu\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -4695,7 +4699,10 @@
                 "core",
                 "sulu"
             ],
-            "time": "2018-07-18T11:28:19+00:00"
+            "support": {
+                "source": "https://github.com/wimvds/sulu/tree/fix-sulu-routing"
+            },
+            "time": "2018-08-27T15:55:36+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6530,9 +6537,17 @@
             "time": "2018-07-26T11:19:56+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "2.6.22",
+            "alias_normalized": "2.6.22.0",
+            "version": "dev-fix-sulu-routing",
+            "package": "sulu/sulu"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "sulu/sulu": 20,
         "zendframework/zendsearch": 20
     },
     "prefer-stable": false,
